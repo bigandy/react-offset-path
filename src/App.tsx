@@ -6,21 +6,33 @@ function App() {
 
   return (
     <>
-      <section id="center">
+        <div className="flex">
         <button
           className="counter"
           onClick={() => setCount((count) => count + 1)}
         >
-          Count is {count}
+          Increase
         </button>
 
-        <Box count={count} />
-      </section>
+        <input type="number" value={count} onInput={(e) => setCount(+e.target.value)}/>
+
+        <button
+          className="counter"
+          onClick={() => setCount((count) => count - 1)}
+          disabled={count === 1}
+        >
+          Reduce
+        </button>
+
+
+        </div>
+
+        <Box count={count} key={count} />
     </>
   );
 }
 
-const Box = ({ count }) => {
+const Box = ({ count }: {count: number}) => {
   const items = useMemo(() => {
     return Array.from(Array(count).keys()).map((i) => {
       return <div className="item" key={`item-${i}`}></div>;
