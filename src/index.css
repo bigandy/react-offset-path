@@ -1,0 +1,35 @@
+.item {
+  display: block;
+  aspect-ratio: 1;
+  border: 1px solid;
+  width: 10px;
+
+  offset-path: circle(50%);
+
+  --animation-duration: 6s;
+  --per-blob: calc(var(--animation-duration) / sibling-count());
+  --bg: hsl(calc(360deg * (sibling-index() / sibling-count())) 100% 50%);
+
+  background: var(--bg);
+  animation: --key-update-offset var(--animation-duration) infinite linear;
+  animation-delay: calc(calc(sibling-index() * var(--per-blob) * -1));
+  animation-play-state: paused;
+}
+
+.box {
+  aspect-ratio: 1;
+  border: 1px solid;
+  height: 400px;
+
+  &:hover {
+    .item {
+      animation-play-state: running;
+    }
+  }
+}
+
+@keyframes --key-update-offset {
+  to {
+    offset-distance: 100%;
+  }
+}
